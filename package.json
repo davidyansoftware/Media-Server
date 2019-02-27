@@ -1,0 +1,12 @@
+{
+  "name": "MediaServer",
+  "version": "1.0.0",
+  "description": "Simple media server for local directories",
+  "main": "server.js",
+  "author": "David Yan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mime-types": "^2.1.21"
+  }
+}
