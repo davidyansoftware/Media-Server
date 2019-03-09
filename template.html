@@ -1,11 +1,42 @@
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="video.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-<video class="media" id="video" controls>
+<!--
+<video class="media-wrapper" id="video" controls>
   <source id="video-source"></source>
 </video>
-<img class="media" id="image">
-<audio class="media" id="audio" controls>
+-->
+
+<div class="media-wrapper" id="video-wrapper">
+  <video id="video">
+    <source id="video-source">
+    Your browser doesn't support the video tag.
+  </video>
+
+  <div class="media-controls">
+    <button class="btn btn-backward" id="backward"><span class="fa fa-backward"></span></button>
+
+    <button class="btn btn-play" id="play"><span class="fa fa-play" id="playIcon"></span></button>
+
+    <button class="btn btn-forward" id="forward"><span class="fa fa-forward"></span></button>
+
+    <button class="btn btn-stop" id="stop"><span class="fa fa-stop"></span></button>
+
+    <button class="btn btn-reset" id="reset"hidden><span class="fa fa-undo"></span></button>
+
+    <button class="btn btn-mute" id="mute"><span class="fa fa-volume-off" id="muteIcon"></span></button>
+
+    <button class="btn btn-expand" id="expand"><span class="fa fa-expand"></span></button>
+  </div>
+
+  <div id="progress-bar">
+    <div class="progress-bar-fill" id="progress-bar-fill"></div>
+  </div>
+</div>
+
+<img class="media-wrapper" id="image">
+<audio class="media-wrapper" id="audio" controls>
   <source id="audio-source"></source>
 </audio>
 
@@ -14,3 +45,4 @@
 </div>
 
 <script src="client.js"></script>
+<script src="video.js"></script>

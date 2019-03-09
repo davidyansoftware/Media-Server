@@ -1,0 +1,49 @@
+video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.media-controls {
+  position: absolute;
+  bottom: -45px;
+  left: 50%;
+  padding: 7px;
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateX(-50%);
+  transition: bottom 0.25s ease-in;
+}
+
+.media-wrapper:focus > video + .media-controls,
+.media-wrapper:hover > video + .media-controls {
+  bottom: 12px;
+  z-index: 2;
+}
+
+.btn {
+  padding: 5px 0;
+  width: 31px;
+  font-size: 18px;
+  text-align: center;
+  color: #fff;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: opacity 0.175s ease-in;
+}
+
+.btn:focus {
+  outline: 0;
+}
+
+.btn:hover {
+  opacity: 0.25;
+}
+
+.progress-bar-fill {
+  width: 0;
+  height: 4px;
+  background-color: #e74c3c;
+  transition: width 0.35s linear;
+}
