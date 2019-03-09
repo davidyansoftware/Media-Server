@@ -2,12 +2,12 @@ const DISPLAY = "inline-block";
 const HIDE = "none";
 
 const video = document.getElementById("video");
-const videoSource = document.getElementById("videoSource");
+const videoSource = document.getElementById("video-source");
 
 const image = document.getElementById("image");
 
 const audio = document.getElementById("audio");
-const audioSource = document.getElementById("audioSource");
+const audioSource = document.getElementById("audio-source");
 
 video.style.display = DISPLAY;
 
