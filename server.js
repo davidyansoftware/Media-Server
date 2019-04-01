@@ -4,12 +4,25 @@ const path = require("path");
 const express = require("express");
 const app = express();
 
-//TODO take this in as commandline argument
 const DEFAULT_MEDIA_PATH = __dirname + "/sample";
-
 const root = process.argv[2]
   ? path.resolve(process.argv[2])
   : DEFAULT_MEDIA_PATH;
+
+const TYPE_PARAMS = {
+  video: {
+    icon: "fas fa-video",
+    onClick: "videoPath"
+  },
+  image: {
+    icon: "far fa-images",
+    onClick: "imagePath"
+  },
+  audio: {
+    icon: "far fa-file-audio",
+    onClick: "audioPath"
+  }
+};
 
 //TODO maybe consolidate these functions
 function getFiles(dir) {
@@ -22,27 +35,17 @@ function getFiles(dir) {
     } else {
       let mimeType = mime.lookup(file);
       if (!mimeType) continue;
+
       let type = mimeType.replace(/\/.*/, "");
-      let icon = "";
-      let onClick = "";
-      if (type === "video") {
-        icon = "fas fa-video";
-        onClick = "videoPath";
-      } else if (type === "image") {
-        icon = "far fa-images";
-        onClick = "imagePath";
-      } else if (type === "audio") {
-        icon = "far fa-file-audio";
-        onClick = "audioPath";
-      } else {
-        continue;
-      }
+      let typeParam = TYPE_PARAMS[type];
+      if (!typeParam) continue;
+
       files.push({
         name: file,
         path: path,
         mimeType: mimeType,
-        icon: icon,
-        onClick: onClick
+        icon: typeParam.icon,
+        onClick: typeParam.onClick
       });
     }
   }
@@ -56,7 +59,6 @@ const INDEX = fs.readFileSync("./public/index.html", "utf-8");
 
 app.get("/", function(req, res) {
   res.set("Content-Type", "text/html");
-  //res.send(TEMPLATE.replace("$MEDIALIST$", getHTML(files)));
   res.send(INDEX);
 });
 
