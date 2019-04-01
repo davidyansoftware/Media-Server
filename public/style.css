@@ -24,3 +24,15 @@ ul li {
   display: none;
   overflow: hidden;
 }
+
+#header {
+  height: 50px;
+  width: 100%;
+  text-align: center;
+}
+
+.traversal-arrow {
+  display: none;
+  text-align: center;
+  width: 40%;
+}

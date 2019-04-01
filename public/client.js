@@ -61,8 +61,21 @@ function getHTML(files) {
   return ul;
 }
 
+const prevButton = document.getElementById("prev");
+const nextButton = document.getElementById("next");
+
+let currFile;
 function handleClick(file) {
+  currFile = file;
   window[file.onClick](file.path);
+  prevButton.style.display = file.prev ? DISPLAY : HIDE;
+  nextButton.style.display = file.next ? DISPLAY : HIDE;
+}
+function next() {
+  if (currFile.next) handleClick(currFile.next);
+}
+function prev() {
+  if (currFile.prev) handleClick(currFile.prev);
 }
 
 function videoPath(path) {
