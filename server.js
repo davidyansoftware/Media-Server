@@ -49,37 +49,20 @@ function getFiles(dir) {
   return files;
 }
 
-function getHTML(files) {
-  let html = "<ul>";
-  for (let file of files) {
-    // check if its a directory
-    let icon = "<i class='" + file.icon + "'></i> ";
-    if (file.files) {
-      html += "<li>" + icon + file.name + "</li>";
-      html += getHTML(file.files);
-    } else {
-      html +=
-        "<li onclick=" +
-        file.onClick +
-        "('" +
-        file.path +
-        "')>" +
-        icon +
-        file.name +
-        "</li>";
-    }
-  }
-  html += "</ul>";
-  return html;
-}
+const files = getFiles("");
+const FILES_JSON = JSON.stringify(files);
 
-let files = getFiles("");
-
-const TEMPLATE = fs.readFileSync("./template.html", "utf-8");
+const INDEX = fs.readFileSync("./public/index.html", "utf-8");
 
 app.get("/", function(req, res) {
   res.set("Content-Type", "text/html");
-  res.send(TEMPLATE.replace("$MEDIALIST$", getHTML(files)));
+  //res.send(TEMPLATE.replace("$MEDIALIST$", getHTML(files)));
+  res.send(INDEX);
+});
+
+app.get("/files", function(req, res) {
+  res.setHeader("Content-Type", "application/json");
+  res.send(FILES_JSON);
 });
 
 app.get("/media/*?", function(req, res) {

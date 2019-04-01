@@ -12,6 +12,39 @@ const audioSource = document.getElementById("audio-source");
 
 videoWrapper.style.display = DISPLAY;
 
+window.onload = function() {
+  fetch("/files")
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      let mediaList = document.getElementById("media-list");
+      mediaList.appendChild(getHTML(data));
+    });
+};
+
+function getHTML(files) {
+  let ul = document.createElement("ul");
+  for (let file of files) {
+    let icon = document.createElement("i");
+    let classes = file.icon.split(" ");
+    for (let iconClass of classes) {
+      icon.classList.add(iconClass);
+    }
+    let li = document.createElement("li");
+    li.appendChild(icon);
+    li.appendChild(document.createTextNode(file.name));
+    if (file.files) {
+      li.append(getHTML(file.files));
+    } else {
+      li.onclick = function() {
+        window[file.onClick](file.path);
+      };
+    }
+    ul.appendChild(li);
+  }
+  return ul;
+}
+
 function videoPath(path) {
   videoWrapper.style.display = DISPLAY;
   image.style.display = HIDE;
