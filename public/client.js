@@ -16,11 +16,27 @@ window.onload = function() {
   fetch("/files")
     .then(res => res.json())
     .then(data => {
+      sequenceTree(data);
       console.log(data);
       let mediaList = document.getElementById("media-list");
       mediaList.appendChild(getHTML(data));
     });
 };
+
+function sequenceTree(files, prevFile) {
+  for (let file of files) {
+    if (file.files) {
+      prevFile = sequenceTree(file.files, prevFile);
+    } else {
+      file.prev = prevFile;
+      if (prevFile) {
+        prevFile.next = file;
+      }
+      prevFile = file;
+    }
+  }
+  return prevFile;
+}
 
 function getHTML(files) {
   let ul = document.createElement("ul");
@@ -37,12 +53,16 @@ function getHTML(files) {
       li.append(getHTML(file.files));
     } else {
       li.onclick = function() {
-        window[file.onClick](file.path);
+        handleClick(file);
       };
     }
     ul.appendChild(li);
   }
   return ul;
+}
+
+function handleClick(file) {
+  window[file.onClick](file.path);
 }
 
 function videoPath(path) {
