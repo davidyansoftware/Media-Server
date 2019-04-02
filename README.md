@@ -28,9 +28,9 @@ If a media path is not provided, it will default to ./sample for demonstration p
 
 Now you can visit http://localhost:3000 to open a client to browse all media files. Click on a media file to start streaming, and display the correct media handler.
 
-## File Tree
+## File Data Processing
 
-Files are stored in a tree data structure. Media files are leaves, and directories branch recursively traversed until all media files are discovered.
+Files are stored in a tree / linked-list data structure. Media files are leaves, and directory branches are recursively traversed until all media files are discovered.
 
 ### Client-Side Rendering
 
@@ -39,3 +39,7 @@ The file tree is passed to the client as JSON, where it is rendered into the nav
 ### Breadth First Sequencing
 
 To handle simple next/previous traversal of these files, the tree is traveresed in a breadth first traversal so next/prev will direct to other media files in the directory, until there are no more files, at which point sub-directories and parent directories will be traversed.
+
+### Doubly Linked List
+
+During the breadth first traversal, leaves are modified to hold linked list information, where each node holds a reference to the leaf before and after it in the breadth-first traversal. This allows the next and previous media files can be quickly and consistently referenced.
